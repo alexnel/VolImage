@@ -2,43 +2,67 @@
 //Project: C++ Assignment 2
 
 #include "volimage.h"
+using namespace std;
+namespace NLXALE001 {
 
-class VolImage
-{
-private:// private members
-
-	int width, height;	// width and height of image stack
-	std::vector<unsigned char**> slices;	// data for each slice, in order
-
-public:	// public members
-
-	VolImage()	{	// default constructor - define in .cpp
+	VolImage::VolImage()	{	// default constructor - define in .cpp
 	
 	}
-	~VolImage();	{	// destructor - define in .cpp file
+	VolImage::~VolImage()	{	// destructor - define in .cpp file
 	
 	}
 	
 	// populate the object with images in stack and
 	//set member variables define in .cpp
-	bool readImages(std::string baseName)	{
+	bool VolImage::readImages(std::string baseName)	{
 	
-	}
+	//open heqader and extract data
+	string headerfile = baseName + ".data";
+	ifstream infile;
+	infile.open(headerfile.c_str());
+	string line;
+	int num;
+	getline(infile, line);
+	istringstream iss(line);
+	iss >> width >> height >> num;
 
+	
+	for (int j = 0; j<num; j++)
+	{
+		string filename = baseName + to_string(j) + ".raw";	//FIX!! conversion of j to string	
+		ifstream file (filename, ios::binary);
+
+		unsigned char ** arr;
+		arr = new unsigned char*[height];
+
+		for (int i = 0; i < height; ++i) {
+			arr[i] = new unsigned char[width];
+			
+			file.read(arr[i], width);
+		}
+		
+		
+		
+	}//end for j
+		
+	}
+	
 	// compute difference map and write out;  define in .cpp
-	void diffmap(int sliceI, int sliceJ, std::string output_prefix)	{
+	void VolImage::diffmap(int sliceI, int sliceJ, std::string output_prefix)	{
+	
+		//(unsigned char)(abs((float)volume[i][r][c] - (float)volume[j][r][c])/2)	
 	
 	}
 
 	// extract slice sliceId and write to output - define in .cpp
-	void extract(int sliceId, std::string output_prefix)	{
+	void VolImage::extract(int sliceId, std::string output_prefix)	{
 	
 	}
 
 	// number of bytes uses to store image data bytes
 	//and pointers (ignore vector<> container, dims etc)
-	int volImageSize(void)	{	// define in .cpp
+	int VolImage::volImageSize(void)	{	// define in .cpp
 	
 	}
-	
-};
+
+}

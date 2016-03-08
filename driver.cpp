@@ -4,29 +4,33 @@
 #include "volimage.h"
 
 using namespace std;
+using namespace NLXALE001;
 
 int main(int argc, char* argv[]) {
 	
 	string baseName = string(argv[0]);
 	
+	VolImage v;
+	v.readImages(baseName);
+	
 	if(string(argv[1])=="-d")	{	//-d flag, send to diffmap
 		istringstream iss(argv[2]);
 		int i;
 		iss >> i;
-		istringstream iss(argv[3]);
+		istringstream is(argv[3]);
 		int j;
-		iss >> j;
-		string out = string(arg[4]);
+		is >> j;
+		string out = string(argv[4]);
 		
-		diffmap(i, j, out);
+		v.diffmap(i, j, out);
 	}
 	else if(string(argv[1])=="-x")	{	//-x flag, send to extract
-		istringstream iss(argv[2]);
+		istringstream iss1(argv[2]);
 		int i2;
-		iss >> i2;
+		iss1 >> i2;
 		string out2 = string(argv[3]);
 		
-		extract(i2, out2);
+		v.extract(i2, out2);
 	}
 	else				{	//no flag
 		

@@ -13,7 +13,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
-
+namespace NLXALE001 {
 class VolImage
 {
 private:// private members
@@ -40,4 +40,5 @@ public:	// public members
 	//and pointers (ignore vector<> container, dims etc)
 	int volImageSize(void);	// define in .cpp
 };
+}
 #endif
