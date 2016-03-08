@@ -2,8 +2,10 @@
 //Project: C++ Assignment 2
 
 #include "volimage.h"
-using namespace std;
+
 namespace NLXALE001 {
+
+using namespace std;
 
 	VolImage::VolImage()	{	// default constructor - define in .cpp
 	
@@ -29,8 +31,14 @@ namespace NLXALE001 {
 	
 	for (int j = 0; j<num; j++)
 	{
-		string filename = baseName + to_string(j) + ".raw";	//FIX!! conversion of j to string	
-		ifstream file (filename, ios::binary);
+		stringstream ss;
+    		ss << j;
+		
+   		string str;
+    		ss >> str;
+		
+		string filename = baseName + str + ".raw";	
+		ifstream file (filename.c_str(), ios::binary);
 
 		unsigned char ** arr;
 		arr = new unsigned char*[height];
@@ -38,10 +46,10 @@ namespace NLXALE001 {
 		for (int i = 0; i < height; ++i) {
 			arr[i] = new unsigned char[width];
 			
-			file.read(arr[i], width);
+			file.read((char *)arr[i], width);
 		}
 		
-		
+		slices.push_back(arr);
 		
 	}//end for j
 		
@@ -56,7 +64,14 @@ namespace NLXALE001 {
 
 	// extract slice sliceId and write to output - define in .cpp
 	void VolImage::extract(int sliceId, std::string output_prefix)	{
-	
+		string outname = output_prefix + ".raw";
+
+		ofstream out;	
+				
+		for (int i = 0; i < height; ++i) {			
+			out.write((char *)slices[sliceId][i], width);
+		}	
+
 	}
 
 	// number of bytes uses to store image data bytes
