@@ -124,4 +124,20 @@ using namespace std;
 		
 	}
 
+
+	void VolImage::extra(int row, std::string output_prefix)	{
+		string outname = output_prefix + ".raw";
+
+		ofstream out(outname.c_str());	
+		
+		for (int i = 0; i<num; i++) {
+			out.write((char *)slices[i][row], width);
+		}
+		
+		out.close();
+		
+		
+		
+	}
+
 }

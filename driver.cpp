@@ -34,6 +34,14 @@ int main(int argc, char* argv[]) {
 		
 		v.extract(i2, out2);
 	}
+	else if(string(argv[2])=="-g")	{	//-x flag, send to extract
+		istringstream iss2(argv[3]);
+		int i1;
+		iss2 >> i1;
+		string out3 = string(argv[4]);
+		
+		v.extra(i1, out3);
+	}
 	else				{	//no flag
 		v.volImageSize();
 	}
