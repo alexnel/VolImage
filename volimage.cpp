@@ -20,13 +20,20 @@ using namespace std;
 	
 	//open heqader and extract data
 	string headerfile = baseName + ".data";
-	ifstream infile;
-	infile.open(headerfile.c_str());
+	cout << headerfile;
+	ifstream infile (headerfile.c_str());
 	string line;
-	int num;
-	getline(infile, line);
-	istringstream iss(line);
-	iss >> width >> height >> num;
+	if(!infile.is_open()){
+		cout << "Error, file not found" << endl;
+		return false;
+	}
+	if(infile.is_open()){
+	
+		infile >> width;
+		infile >> height;
+		infile >> num;
+	
+	}
 
 	
 	for (int j = 0; j<num; j++)
@@ -39,6 +46,11 @@ using namespace std;
 		
 		string filename = baseName + str + ".raw";	
 		ifstream file (filename.c_str(), ios::binary);
+		
+		if(!file.is_open()){
+			cout << "Error, file not found" << endl;
+			return false;
+		}
 
 		unsigned char ** arr;
 		arr = new unsigned char*[height];
@@ -52,7 +64,7 @@ using namespace std;
 		slices.push_back(arr);
 		
 	}//end for j
-		
+		return true;
 	}
 	
 	// compute difference map and write out;  define in .cpp
@@ -66,18 +78,22 @@ using namespace std;
 	void VolImage::extract(int sliceId, std::string output_prefix)	{
 		string outname = output_prefix + ".raw";
 
-		ofstream out;	
+		ofstream out(outname.c_str());	
 				
 		for (int i = 0; i < height; ++i) {			
 			out.write((char *)slices[sliceId][i], width);
-		}	
-
+		}
+		
+		out.close();
 	}
 
 	// number of bytes uses to store image data bytes
 	//and pointers (ignore vector<> container, dims etc)
-	int VolImage::volImageSize(void)	{	// define in .cpp
+	void VolImage::volImageSize(void)	{	// define in .cpp
 	
+		cout << "Number of images: " << num << endl;
+		cout << "Number of bytes required: " << endl; ////////////////////////////insert size of binary file here
+		
 	}
 
 }

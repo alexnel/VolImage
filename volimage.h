@@ -18,7 +18,7 @@ class VolImage
 {
 private:// private members
 
-	int width, height;	// width and height of image stack
+	int width, height, num;	// width and height of image stack
 	std::vector<unsigned char**> slices;	// data for each slice, in order
 
 public:	// public members
@@ -38,7 +38,7 @@ public:	// public members
 
 	// number of bytes uses to store image data bytes
 	//and pointers (ignore vector<> container, dims etc)
-	int volImageSize(void);	// define in .cpp
+	void volImageSize(void);	// define in .cpp
 };
 }
 #endif
