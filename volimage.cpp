@@ -12,7 +12,12 @@ using namespace std;
 	
 	}
 	VolImage::~VolImage()	{	// destructor - define in .cpp file
-	
+		for (int i = 0; i<num; i++) {
+			for (int j = 0; j<height; j++) {
+				delete [] slices[i][j];
+			}//end for j
+			delete [] slices[i];
+		}//end for i
 	}
 	
 	// populate the object with images in stack and
@@ -21,7 +26,6 @@ using namespace std;
 	
 	//open heqader and extract data
 	string headerfile = baseName + ".data";
-	cout << headerfile;
 	ifstream infile (headerfile.c_str());
 	string line;
 	if(!infile.is_open()){
@@ -89,6 +93,12 @@ using namespace std;
 		}
 		
 		out.close();
+		
+		for (int j = 0; j<height; j++) {
+			delete [] array[j];
+		}//end for j
+		delete [] array;
+
 	}
 
 	// extract slice sliceId and write to output - define in .cpp
