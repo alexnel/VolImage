@@ -2,6 +2,7 @@
 //Project: C++ Assignment 2
 
 #include "volimage.h"
+#include <math.h>
 
 namespace NLXALE001 {
 
@@ -69,9 +70,25 @@ using namespace std;
 	
 	// compute difference map and write out;  define in .cpp
 	void VolImage::diffmap(int sliceI, int sliceJ, std::string output_prefix)	{
-	
-		//(unsigned char)(abs((float)volume[i][r][c] - (float)volume[j][r][c])/2)	
-	
+		
+		string outname = output_prefix + ".raw";
+
+		ofstream out(outname.c_str());	
+		
+		unsigned char ** array;
+		array = new unsigned char*[height];
+
+		for (int i = 0; i < height; ++i) {
+			array[i] = new unsigned char[width];
+			
+			for (int j = 0; j < width; j++) {
+				array[i][j] = (unsigned char)(fabs((float)slices[sliceI][i][j] - (float)slices[sliceJ][i][j])/2);
+			}
+			
+			out.write((char *)array[i], width);
+		}
+		
+		out.close();
 	}
 
 	// extract slice sliceId and write to output - define in .cpp
@@ -91,8 +108,9 @@ using namespace std;
 	//and pointers (ignore vector<> container, dims etc)
 	void VolImage::volImageSize(void)	{	// define in .cpp
 	
+		int bytes = width*height*num*1 + height*num*8 + num*8; //arraysize*charsize + pointers + double pointers
 		cout << "Number of images: " << num << endl;
-		cout << "Number of bytes required: " << endl; ////////////////////////////insert size of binary file here
+		cout << "Number of bytes required: " << bytes << endl;
 		
 	}
 
