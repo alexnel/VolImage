@@ -28,11 +28,11 @@ using namespace std;
 	string headerfile = baseName + ".data";
 	ifstream infile (headerfile.c_str());
 	string line;
-	if(!infile.is_open()){
+	if(!infile.is_open()){		//error handling
 		cout << "Error, file not found" << endl;
 		return false;
 	}
-	if(infile.is_open()){
+	if(infile.is_open()){		//set width, height and number of images
 	
 		infile >> width;
 		infile >> height;
@@ -41,7 +41,7 @@ using namespace std;
 	}
 
 	
-	for (int j = 0; j<num; j++)
+	for (int j = 0; j<num; j++)		//populate vector wqith arrays
 	{
 		stringstream ss;
     		ss << j;
@@ -79,6 +79,7 @@ using namespace std;
 
 		ofstream out(outname.c_str());	
 		
+		//create array and populate it with diffs, wirte to file
 		unsigned char ** array;
 		array = new unsigned char*[height];
 
@@ -106,7 +107,7 @@ using namespace std;
 		string outname = output_prefix + ".raw";
 
 		ofstream out(outname.c_str());	
-				
+		//write slice to file		
 		for (int i = 0; i < height; ++i) {			
 			out.write((char *)slices[sliceId][i], width);
 		}
@@ -129,7 +130,7 @@ using namespace std;
 		string outname = output_prefix + ".raw";
 
 		ofstream out(outname.c_str());	
-		
+		//write row of each image to file
 		for (int i = 0; i<num; i++) {
 			out.write((char *)slices[i][row], width);
 		}
