@@ -14,7 +14,11 @@ int main(int argc, char* argv[]) {
 	bool complete = v.readImages(baseName);
 	if (complete == false) { 	return 0;	} //if something failed, exit
 
-	
+	if(argc==2) //no flags
+	{
+		v.volImageSize();
+		return 0;
+	}
 	if(string(argv[2])=="-d")	{	//-d flag, send to diffmap
 		istringstream iss(argv[3]);
 		int i;
@@ -42,8 +46,8 @@ int main(int argc, char* argv[]) {
 		
 		v.extra(i1, out3);
 	}
-	else				{	//no flag
-		v.volImageSize();
+	else {
+		cout << "Invalid flags" << endl;
 	}
 	return 0;
 }

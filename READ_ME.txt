@@ -11,6 +11,9 @@ To diffmap file:
 			./VolImage <imageBase> -d sliceIDi sliceIDj output_file_name
 To extract imgage along rows for all slices:
 			./VolImage <imageBase> -g rowID
+To determine the number of bytes used and number of images:
+			./VolImage <imageBase>
+
 
 where 	<imageBase> is  the  the prefix for the file sequence
 	output_file_name is the file that the results will be written to
